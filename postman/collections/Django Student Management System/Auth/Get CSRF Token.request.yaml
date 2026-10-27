@@ -1,0 +1,14 @@
+$kind: http-request
+name: 'Get CSRF Token'
+order: 1000
+url: '{{baseUrl}}/api/auth/csrf/'
+method: GET
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      if (pm.response.code === 200) {
+        var csrfToken = pm.response.json().csrfToken;
+        pm.variables.set('csrfToken', csrfToken);
+        console.log('CSRF token saved:', csrfToken);
+      }

@@ -1,0 +1,11 @@
+name: 'Django SMS Dev'
+values:
+  - key: baseUrl
+    value: 'http://127.0.0.1:8000'
+    enabled: true
+  - key: csrfToken
+    value: ''
+    enabled: true
+  - key: studentId
+    value: ''
+    enabled: true

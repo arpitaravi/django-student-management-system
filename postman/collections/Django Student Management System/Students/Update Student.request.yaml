@@ -1,0 +1,28 @@
+$kind: http-request
+name: 'Update Student'
+order: 4000
+url: '{{baseUrl}}/api/students/{{studentId}}/'
+method: PATCH
+headers:
+  - key: 'X-CSRFToken'
+    value: '{{csrfToken}}'
+body:
+  type: json
+  content: |-
+    {
+      "age": 21
+    }
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      var baseUrl = pm.variables.get('baseUrl') || 'http://127.0.0.1:8000';
+      pm.sendRequest({
+          url: baseUrl + '/api/auth/csrf/',
+          method: 'GET'
+      }, function(err, response) {
+          if (!err && response.code === 200) {
+              var csrfToken = response.json().csrfToken;
+              pm.variables.set('csrfToken', csrfToken);
+          }
+      });

@@ -1,0 +1,3 @@
+$kind: collection
+name: 'Django Student Management System'
+description: 'Full API test collection for the Django Student Management System. Covers auth (CSRF, login, me, logout) and student CRUD.'

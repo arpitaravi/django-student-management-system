@@ -1,0 +1,5 @@
+$kind: http-request
+name: 'Get Student by ID'
+order: 3000
+url: '{{baseUrl}}/api/students/{{studentId}}/'
+method: GET

@@ -1,0 +1,37 @@
+$kind: http-request
+name: 'Login'
+order: 2000
+url: '{{baseUrl}}/api/auth/login/'
+method: POST
+headers:
+  - key: 'X-CSRFToken'
+    value: '{{csrfToken}}'
+body:
+  type: json
+  content: |-
+    {
+      "username": "arcitharavi",
+      "password": "arcitharavi"
+    }
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      var baseUrl = pm.variables.get('baseUrl') || 'http://127.0.0.1:8000';
+      pm.sendRequest({
+          url: baseUrl + '/api/auth/csrf/',
+          method: 'GET'
+      }, function(err, response) {
+          if (!err && response.code === 200) {
+              var csrfToken = response.json().csrfToken;
+              pm.variables.set('csrfToken', csrfToken);
+          }
+      });
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      if (pm.response.code === 200) {
+          var body = pm.response.json();
+          pm.variables.set('csrfToken', body.csrfToken);
+          console.log('Login successful. Post-login CSRF token saved.');
+      }

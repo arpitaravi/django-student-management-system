@@ -1,0 +1,5 @@
+$kind: http-request
+name: 'Current User (Me)'
+order: 3000
+url: '{{baseUrl}}/api/auth/me/'
+method: GET
